@@ -72,7 +72,7 @@ namespace BlockGame.BlockWorld
 
         protected override void OnUpdate()
         {
-            var commandBuffer = _barrier.CreateCommandBuffer().ToConcurrent();
+            var commandBuffer = _barrier.CreateCommandBuffer().AsParallelWriter();
 
             Entities
                 .WithName("AddBlockBuffersToChunks")

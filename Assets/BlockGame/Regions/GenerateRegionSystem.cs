@@ -37,7 +37,7 @@ namespace BlockGame.BlockWorld
 
         void InitializeRegions()
         {
-            var concurrentBuffer = _barrier.CreateCommandBuffer().ToConcurrent();
+            var concurrentBuffer = _barrier.CreateCommandBuffer().AsParallelWriter();
             // Apply default generation settings if none exist
             Entities
                 .WithName("ApplyDefaultRegionGenerationSettings")
@@ -76,7 +76,7 @@ namespace BlockGame.BlockWorld
 
         void GenerateHeightMapBlobs()
         {
-            var commandBuffer = _barrier.CreateCommandBuffer().ToConcurrent();
+            var commandBuffer = _barrier.CreateCommandBuffer().AsParallelWriter();
             Entities
                 .WithNone<RegionHeightMap>()
                 .WithAll<GenerateRegion>()
@@ -103,7 +103,7 @@ namespace BlockGame.BlockWorld
 
         void GenerateChunks()
         {
-            var commandBuffer = _barrier.CreateCommandBuffer().ToConcurrent();
+            var commandBuffer = _barrier.CreateCommandBuffer().AsParallelWriter();
             var chunkArchetype = _chunkArchetype;
             Entities
                 .WithName("GenerateChunksInRegion")

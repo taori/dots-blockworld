@@ -45,7 +45,7 @@ namespace BlockGame.BlockWorld
 			if (settingsUI != null)
 				settings = settingsUI.Settings;
 
-			var ecb = _barrier.CreateCommandBuffer().ToConcurrent();
+			var ecb = _barrier.CreateCommandBuffer().AsParallelWriter();
 
 			var regionArchetype = _regionArchetype;
 
@@ -93,7 +93,7 @@ namespace BlockGame.BlockWorld
 				genSettings = settings,
 				chunkArchetype = regionArchetype,
 				loadedPoints = loadedPoints.AsDeferredJobArray(),
-				ecb = _barrier.CreateCommandBuffer().ToConcurrent(),
+				ecb = _barrier.CreateCommandBuffer().AsParallelWriter(),
 			}.Schedule(loadedPoints, 64, Dependency);
 
 			loadedPoints.Dispose(Dependency);
@@ -111,7 +111,7 @@ namespace BlockGame.BlockWorld
 			[ReadOnly]
 			public NativeArray<int2> loadedPoints;
 
-			public EntityCommandBuffer.Concurrent ecb;
+			public EntityCommandBuffer.ParallelWriter ecb;
 			public EntityArchetype chunkArchetype;
 			public GenerateRegionHeightMapSettings genSettings;
 

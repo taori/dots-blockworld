@@ -35,7 +35,7 @@ namespace BlockGame.BlockWorld
 
 		void AddRenderMeshes()
 		{
-			var buffer = _barrier.CreateCommandBuffer().ToConcurrent();
+			var buffer = _barrier.CreateCommandBuffer().AsParallelWriter();
 
 			Entities
 				.WithName("AddRenderMeshesToChunks")
